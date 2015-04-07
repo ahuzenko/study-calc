@@ -14,7 +14,6 @@ public interface Manage{
 
 
     public double calculate(String sign, double arg1, double arg2)throws Exception;
-    public double getLastResult();
     public String getHelpBySign(String sign)throws OperationNotFoundException;
     public StringBuilder getAllItems();
 }

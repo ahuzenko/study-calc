@@ -6,7 +6,7 @@
 package calcmodel.Operations;
 
 
-import calcmodel.Operations.OperationTempl;
+
 
 public class OperationDiv extends OperationTempl {
 

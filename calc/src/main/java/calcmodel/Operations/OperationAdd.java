@@ -6,7 +6,7 @@
 package calcmodel.Operations;
 
 
-//import calcmodel.Operations.OperationTempl;
+
 
 public class OperationAdd extends OperationTempl {
 
@@ -17,21 +17,21 @@ public class OperationAdd extends OperationTempl {
 
 
 
-  //  @Override
+
     public double execute(double arg1, double arg2) {
         return arg1+arg2;
     }
 
-  //  @Override
+
     public String showDescription() {
         return helpDescription;
     }
-  //  @Override
+
     public void setDescription(String operationDescription) {
         helpDescription = operationDescription;
     }
 
-        public String getOperationSign() {
+    public String getOperationSign() {
       return sign;
     }
     

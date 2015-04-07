@@ -55,20 +55,24 @@ public class CalculatorMenu {
         showMenu();
         while((i=in.nextInt()) != 3)
         {
-            switch(i){
-                case 1: calculateOperation();
-                        break;
-                case 2: displayHelp();
-                        break;
-                default: System.out.println("Unknown operation");
+            switch(i) {
+                case 1:
+                    calculateOperation();
+                    break;
+                case 2:
+                    displayHelp();
+                    break;
+                default:
+                    System.out.println("Unknown operation");
+            }
             showMenu();
         }
             
     
-        }
+     }
         
         
-    }
+
 
     public void calculateOperation() throws Exception {
         

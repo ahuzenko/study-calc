@@ -63,12 +63,7 @@ public class CalculatorEngine implements Manage {
     }
     
 
-    public double getLastResult() {
-       return LastResult;
-    }
-
-
-    public String getHelpBySign(String sign)throws OperationNotFoundException {
+       public String getHelpBySign(String sign)throws OperationNotFoundException {
        
         return findOpertionBySign(sign).showDescription();
         
