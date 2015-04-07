@@ -1,68 +1,1 @@
-package calcmodel.Engine;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import calcmodel.Operations.*;
-import org.mockito.stubbing.OngoingStubbing;
-import utils.ListCreator;
-
-import java.util.ArrayList;
-
-import static org.mockito.Mockito.*;
-
-import static org.junit.Assert.*;
-
-/**
- * Created by Sunny on 05.04.2015.
- */
-public class CalculatorEngineTest {
-
-    Manage  clc;
-
-    @Before
-    public void setUp() throws Exception {
-
-
-      //  clc = (new ListCreator()). Arrange();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
-    @Test
-    public void testGetAllItems() throws Exception {
-
-    }
-
-    @Test
-    public void testCalculate() throws Exception {
-
-        OperationAdd opAdd = mock(OperationAdd.class);
-        ArrayList<Operation> op = new ArrayList<Operation>();
-        op.add(opAdd);
-        clc = CalcFactory.buildCalculator(op);
-        double expected = 11;
-
-        when(opAdd.execute(1, 10)).thenReturn(expected);
-        when(opAdd.getOperationSign()).thenReturn("+");
-
-        double result =  clc.calculate("+", 1, 10);
-
-        verify(opAdd).execute(1, 10);
-        assertEquals(expected, result, 0.1E-10);
-
-    }
-
-    @Test
-    public void testGetLastResult() throws Exception {
-
-    }
-
-    @Test
-    public void testGetHelpBySign() throws Exception {
-
-    }
-}
+package calcmodel.Engine;import org.junit.Test;import calcmodel.Operations.*;import java.util.ArrayList;import static org.mockito.Mockito.*;import static org.junit.Assert.*;/** * Created by Sunny on 05.04.2015. */public class CalculatorEngineTest {    Manage  clc;    @Test    public void testCalculateAdd() throws Exception {        OperationAdd opAdd = mock(OperationAdd.class);        ArrayList<Operation> op = new ArrayList<Operation>();        op.add(opAdd);        clc = CalcFactory.buildCalculator(op);        double expected = 11;        when(opAdd.execute(1, 10)).thenReturn(expected);        when(opAdd.getOperationSign()).thenReturn("+");        double result =  clc.calculate("+", 1, 10);        verify(opAdd).execute(1, 10);        assertEquals(expected, result, 0.1E-10);    }    @Test    public void testCalculateMinus() throws Exception {       //arrange        double expected = 10;        OperationAdd opMinus = mock(OperationAdd.class);        ArrayList<Operation> op = new ArrayList<Operation>();        op.add(opMinus);        clc = CalcFactory.buildCalculator(op);        when(opMinus.execute(20, 10)).thenReturn(expected);        when(opMinus.getOperationSign()).thenReturn("-");        //act        double result =  clc.calculate("-", 20, 10);        //assert        verify(opMinus).execute(20, 10);        assertEquals(expected, result, 0.1E-10);    }    @Test(expected = Exception.class)    public void testCalculateDivByZero() throws Exception {        //arrange        OperationAdd opDiv = mock(OperationAdd.class);        ArrayList<Operation> op = new ArrayList<Operation>();        op.add(opDiv);        clc = CalcFactory.buildCalculator(op);        when(opDiv.execute(1, 0)).thenThrow(new Exception());        when(opDiv.getOperationSign()).thenReturn("/");        //act        clc.calculate("/", 1, 0);    }    @Test    public void testCalculateMultiply() throws Exception {        Operation  opMultiply = mock(OperationAdd.class);        ArrayList<Operation> op = new ArrayList<Operation>();        op.add(opMultiply);        clc = CalcFactory.buildCalculator(op);        double expected = 20;        when(opMultiply.execute(2, 10)).thenReturn(expected);        when(opMultiply.getOperationSign()).thenReturn("*");        double result =  clc.calculate("*", 2, 10);        verify(opMultiply).execute(2, 10);        assertEquals(expected, result, 0.1E-10);    }   @Test   public void testGetAllItems() throws Exception {         ArrayList<Operation> op = new ArrayList<Operation>();         Operation  opMultiply = mock(OperationAdd.class);         OperationAdd opMinus = mock(OperationAdd.class);         op.add(opMultiply);         op.add(opMinus);         clc = CalcFactory.buildCalculator(op);         when(opMultiply.getOperationSign()).thenReturn("*");         when(opMinus.getOperationSign()).thenReturn("-");         when(opMultiply.showDescription()).thenReturn(" multiply");         when(opMinus.showDescription()).thenReturn(" minus");         StringBuilder expected = new StringBuilder();         expected.append("*: " + " multiply\n");         expected.append("-: " + " minus\n");         StringBuilder result =  clc.getAllItems();         verify(opMinus).getOperationSign();         verify(opMultiply).getOperationSign();         verify(opMinus).showDescription();         verify(opMultiply).showDescription();          assertEquals(expected.toString(), result.toString());   }    @Test    public void testGetHelpBySign() throws Exception {        ArrayList<Operation> op = new ArrayList<Operation>();        Operation opMultiply = mock(OperationAdd.class);        OperationAdd opMinus = mock(OperationAdd.class);        op.add(opMultiply);        op.add(opMinus);        clc = CalcFactory.buildCalculator(op);        when(opMultiply.getOperationSign()).thenReturn("*");        when(opMinus.getOperationSign()).thenReturn("-");        when(opMultiply.showDescription()).thenReturn(" multiply");        when(opMinus.showDescription()).thenReturn(" minus");        String expected = " multiply";        String result = clc.getHelpBySign("*");        assertEquals(expected, result);    }}
